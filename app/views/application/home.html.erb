@@ -1,0 +1,7 @@
+<% if current_user.blank? %>
+  <%= link_to 'Accedi', new_user_session_path %> o <%= link_to 'Registrati', new_user_registration_path %> per cominciare.
+<% elsif can? :index, Lecture %>
+  Scegli una delle <%= link_to 'lezioni disponibili', lectures_path %> oppure <%= link_to 'crea una nuova lezione', new_lecture_path %>.
+<% else %>
+  Ora che sei iscritto, contatta Carlo Martinucci per essere autorizzato come Tutor.
+<% end %>

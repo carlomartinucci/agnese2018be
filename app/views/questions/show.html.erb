@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lecture:</strong>
+  <%= @question.lecture_id %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @question.uuid %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @question.title %>
+</p>
+
+<p>
+  <strong>Answer a:</strong>
+  <%= @question.answer_a %>
+</p>
+
+<p>
+  <strong>Answer b:</strong>
+  <%= @question.answer_b %>
+</p>
+
+<p>
+  <strong>Answer c:</strong>
+  <%= @question.answer_c %>
+</p>
+
+<p>
+  <strong>Answer d:</strong>
+  <%= @question.answer_d %>
+</p>
+
+<p>
+  <strong>Answer e:</strong>
+  <%= @question.answer_e %>
+</p>
+
+<p>
+  <strong>Right answer letter:</strong>
+  <%= @question.right_answer_letter %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', lecture_questions_path(@question.lecture) %>
