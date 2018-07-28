@@ -25,6 +25,14 @@ class Lecture < ApplicationRecord
   validates :description, presence: true
   validates :uuid, presence: true, uniqueness: true
 
+  def date
+    delivered_at.to_s(:short)
+  end
+
+  def image
+    Rails.application.routes.url_helpers.url_for(background)
+  end
+
   private
 
     def set_uuid

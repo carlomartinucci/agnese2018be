@@ -1,5 +1,5 @@
 <ul>
-  <% if can? :index, Lecture %>
+  <% if current_user.present? && can?(:index, Lecture) %>
     <li><%= link_to 'Lezioni', lectures_path %></li>
   <% end %>
 </ul>

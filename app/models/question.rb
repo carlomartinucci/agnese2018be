@@ -14,6 +14,7 @@
 #  right_answer_letter :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  description         :text
 #
 
 class Question < ApplicationRecord
@@ -24,6 +25,7 @@ class Question < ApplicationRecord
   validates :lecture, presence: true
   validates :uuid, presence: true
   validates :title, presence: true
+  validates :description, presence: true
   validates :answer_a, presence: true
   validates :answer_b, presence: true
   validates :answer_c, presence: true
