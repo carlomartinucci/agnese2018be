@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_21_082418) do
+ActiveRecord::Schema.define(version: 2018_08_13_154003) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_082418) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "uuid"
+    t.boolean "visible", default: false
     t.index ["user_id"], name: "index_lectures_on_user_id"
     t.index ["uuid"], name: "index_lectures_on_uuid"
   end
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_082418) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
+    t.integer "position"
     t.index ["lecture_id"], name: "index_questions_on_lecture_id"
     t.index ["uuid"], name: "index_questions_on_uuid"
   end

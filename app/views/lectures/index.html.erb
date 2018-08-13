@@ -1,33 +1,12 @@
-<p id="notice"><%= notice %></p>
+<h1>Lezioni</h1>
 
-<h1>Lectures</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Delivered at</th>
-      <th>Tutor</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @lectures.each do |lecture| %>
-      <tr>
-        <td><%= lecture.title %></td>
-        <td><%= lecture.delivered_at %></td>
-        <td><%= lecture.tutor %></td>
-        <td><%= lecture.description %></td>
-        <td><%= link_to 'Mostra', lecture %></td>
-        <td><%= link_to 'Modifica', edit_lecture_path(lecture) %></td>
-        <td><%= link_to 'Domande', lecture_questions_path(lecture) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Lecture', new_lecture_path %>
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <%= render 'new_link' %>
+  </div>
+  <% @lectures.each do |lecture| %>
+    <div class="col-md-6 mb-4">
+      <%= render lecture %>
+    </div>
+  <% end%>
+</div>

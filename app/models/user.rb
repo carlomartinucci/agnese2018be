@@ -44,9 +44,13 @@ class User < ApplicationRecord
     role == User::TUTOR
   end
 
+  def name
+    email.split('@').first.titleize
+  end
+
   private
 
     def set_role
-      self.role = User::USER if role.blank?
+      self.role = User::TUTOR if role.blank?
     end
 end

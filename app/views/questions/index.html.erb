@@ -1,43 +1,9 @@
-<p id="notice"><%= notice %></p>
+<h1>Domande di <%= @lecture.title %></h1>
 
-<h1>Questions</h1>
+<div class="card">
+  <ul class="list-group list-group-flush">
+    <%= render 'new_link', lecture: @lecture %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Lecture</th>
-      <th>Uuid</th>
-      <th>Title</th>
-      <th>Answer a</th>
-      <th>Answer b</th>
-      <th>Answer c</th>
-      <th>Answer d</th>
-      <th>Answer e</th>
-      <th>Right answer letter</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.lecture_id %></td>
-        <td><%= question.uuid %></td>
-        <td><%= question.title %></td>
-        <td><%= question.answer_a %></td>
-        <td><%= question.answer_b %></td>
-        <td><%= question.answer_c %></td>
-        <td><%= question.answer_d %></td>
-        <td><%= question.answer_e %></td>
-        <td><%= question.right_answer_letter %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Question', new_lecture_question_path(@lecture) %>
+    <%= render @questions %>
+  </ul>
+</div>

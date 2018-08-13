@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header">
+    <%=l Time.now %>
+  </div>
+
+  <div class="card-header text-center">
+    <%= material_icon.add.md_48.css_class('my-4') %>
+  </div>
+
+  <div class="card-body">
+    <h5 class="card-title">
+      Nuova lezione
+    </h5>
+
+    <h6 class="card-subtitle mb-2 text-muted">
+      <%= current_user.name %>
+    </h6>
+
+    <p class="card-text">
+      Clicca su "Aggiungi" per aggiungere una nuova lezione.
+    </p>
+
+    <%= link_to 'Aggiungi', new_lecture_path, class: 'btn btn-primary' %>
+  </div>
+</div>

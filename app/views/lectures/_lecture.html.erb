@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-header">
+    <%=l lecture.delivered_at %>
+  </div>
+
+  <%= image_tag lecture.image, class: 'responsive-image card-img-top', alt: lecture.title %>
+
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= lecture.title %>
+    </h5>
+
+    <h6 class="card-subtitle mb-2 text-muted">
+      <%= lecture.tutor %>
+    </h6>
+
+    <p class="card-text">
+      <%= lecture.description %>
+    </p>
+
+    <%= link_to material_icon.edit.md_18, edit_lecture_path(lecture), class: 'btn btn-outline-primary float-right' %>
+    <%= link_to 'Domande', lecture_questions_path(lecture), class: 'btn btn-lg btn-primary' %>
+  </div>
+</div>

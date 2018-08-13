@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   default_url_options host: Rails.env.production? ? 'https://agnese2018be.herokuapp.com' : 'http://localhost:3000'
 
   resources :answers, only: [:index, :show, :create, :update]
-  resources :lectures do
+  resources :lectures, only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :questions, shallow: true
   end
+  post '/questions/:id/move/:where', to: 'questions#move', as: 'move_question'
 
   namespace :api, format: :json do
     namespace :v1 do

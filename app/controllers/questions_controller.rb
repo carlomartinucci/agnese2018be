@@ -1,11 +1,11 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :move]
   before_action :set_lecture, only: [:index, :new, :create]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = @lecture.questions.order(:position)
   end
 
   # GET /questions/1
@@ -16,6 +16,17 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
+  end
+
+  def move
+    case params[:where]
+    when 'higher'
+      @question.move_higher
+    when 'lower'
+      @question.move_lower
+    end
+
+    redirect_to lecture_questions_path(@question.lecture)
   end
 
   # GET /questions/1/edit

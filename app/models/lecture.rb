@@ -11,6 +11,7 @@
 #  updated_at   :datetime         not null
 #  user_id      :integer
 #  uuid         :string
+#  visible      :boolean          default(FALSE)
 #
 
 class Lecture < ApplicationRecord

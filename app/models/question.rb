@@ -15,10 +15,12 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  description         :text
+#  position            :integer
 #
 
 class Question < ApplicationRecord
   belongs_to :lecture
+  acts_as_list scope: :lecture
 
   before_validation :set_uuid
 

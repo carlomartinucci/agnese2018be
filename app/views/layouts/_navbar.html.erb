@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to root_path, class: 'navbar-brand' do %>
+    <%= material_icon.face %>
+    &nbsp;
+    Agnese 2018
+  <% end %>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <%= 'active' if current_page?(root_path) %>">
+        <%= link_to root_path, class: 'nav-link' do %>
+          Home
+          <%= content_tag(:span, '(current)', class: 'sr-only') if current_page?(root_path) %>
+        <% end %>
+      </li>
+
+      <% if current_user.present? && can?(:index, Lecture) %>
+        <li class="nav-item <%= 'active' if current_page?(lectures_path) %>">
+          <%= link_to lectures_path, class: 'nav-link' do %>
+            Lezioni
+            <%= content_tag(:span, '(current)', class: 'sr-only') if current_page?(lectures_path) %>
+          <% end %>
+        </li>
+
+        <% if current_user.lectures.none? %>
+          <li class="nav-item disabled">
+            <%= link_to "#", class: 'nav-link' do %>
+              Domande
+            <% end %>
+          </li>
+        <% elsif current_user.lectures.length == 1 %>
+          <% lecture = current_user.lectures.first %>
+          <li class="nav-item <%= 'active' if current_page?(lecture_questions_path(lecture)) %>">
+            <%= link_to lecture_questions_path(lecture), class: 'nav-link' do %>
+              Domande
+              <%= content_tag(:span, '(current)', class: 'sr-only') if current_page?(lecture_questions_path(lecture)) %>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Domande
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% current_user.lectures.each do |lecture| %>
+                <%= link_to lecture.title, lecture_questions_path(lecture), class: 'dropdown-item' %>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0">
+      <% if current_user.present? %>
+        <%= link_to 'Log out', destroy_user_session_path, class: 'btn btn-outline-danger my-2 my-sm-0', method: :delete, data: { confirm: 'Sei sicuro di voler uscire?' } %>
+      <% else %>
+        <%= link_to 'Log in', new_user_session_path, class: 'btn btn-outline-success my-2 my-sm-0' %>
+        <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-info my-2 my-sm-0' %>
+      <% end %>
+    </form>
+  </div>
+</nav>
+

@@ -1,7 +1,15 @@
-<% if current_user.blank? %>
-  <%= link_to 'Accedi', new_user_session_path %> o <%= link_to 'Registrati', new_user_registration_path %> per cominciare.
-<% elsif can? :index, Lecture %>
-  Scegli una delle <%= link_to 'lezioni disponibili', lectures_path %> oppure <%= link_to 'crea una nuova lezione', new_lecture_path %>.
-<% else %>
-  Ora che sei iscritto, contatta Carlo Martinucci per essere autorizzato come Tutor.
-<% end %>
+<div class="jumbotron">
+  <h1 class="display-4">Ciao <%= current_user.name %></h1>
+
+  <p class="lead">Attraverso queste pagine puoi impostare le domande delle lezioni che svolgerai durante i precorsi 2018.</p>
+
+  <hr class="my-4">
+
+  <% if current_user.lectures.none? %>
+    <p>Innanzitutto aggiungi una lezione, poi potrai inserire le domande al suo interno.</p>
+    <%= link_to 'Aggiungi la tua lezione', new_lecture_path, class: 'btn btn-primary btn-lg', role: 'button' %>
+  <% else %>
+    <p>Vai alle tue lezioni e aggiungi o modifica le domande del test.</p>
+    <%= link_to 'Vai alle tue lezioni', lectures_path, class: 'btn btn-primary btn-lg', role: 'button' %>
+  <% end %>
+</div>

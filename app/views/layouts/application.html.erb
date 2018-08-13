@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
   <head>
     <title>Agnese2018be</title>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,12 +12,14 @@
   </head>
 
   <body>
-    <%= render 'layouts/title' %>
+    <%= render 'layouts/navbar' %>
 
-    <%= render 'layouts/navigation' %>
+    <main>
+      <div class="container">
+        <%= render 'layouts/notification' %>
 
-    <%= render 'layouts/notification' %>
-
-    <%= yield %>
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>

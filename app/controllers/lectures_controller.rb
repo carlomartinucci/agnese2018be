@@ -1,16 +1,11 @@
 class LecturesController < ApplicationController
-  before_action :set_lecture, only: [:show, :edit, :update, :destroy]
+  before_action :set_lecture, only: [:edit, :update, :destroy]
   authorize_resource
 
   # GET /lectures
   # GET /lectures.json
   def index
-    @lectures = Lecture.order(:created_at)
-  end
-
-  # GET /lectures/1
-  # GET /lectures/1.json
-  def show
+    @lectures = Lecture.order(:delivered_at)
   end
 
   # GET /lectures/new
@@ -27,28 +22,20 @@ class LecturesController < ApplicationController
   def create
     @lecture = current_user.lectures.new(lecture_params)
 
-    respond_to do |format|
-      if @lecture.save
-        format.html { redirect_to @lecture, notice: 'Lecture was successfully created.' }
-        format.json { render :show, status: :created, location: @lecture }
-      else
-        format.html { render :new }
-        format.json { render json: @lecture.errors, status: :unprocessable_entity }
-      end
+    if @lecture.save
+      redirect_to lectures_path, notice: 'Lecture was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /lectures/1
   # PATCH/PUT /lectures/1.json
   def update
-    respond_to do |format|
-      if @lecture.update(lecture_params)
-        format.html { redirect_to @lecture, notice: 'Lecture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lecture }
-      else
-        format.html { render :edit }
-        format.json { render json: @lecture.errors, status: :unprocessable_entity }
-      end
+    if @lecture.update(lecture_params)
+      redirect_to @lecture, notice: 'Lecture was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -56,10 +43,7 @@ class LecturesController < ApplicationController
   # DELETE /lectures/1.json
   def destroy
     @lecture.destroy
-    respond_to do |format|
-      format.html { redirect_to lectures_url, notice: 'Lecture was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to lectures_url, notice: 'Lecture was successfully destroyed.'
   end
 
   private
