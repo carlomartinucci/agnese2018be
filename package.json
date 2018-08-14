@@ -1,10 +1,12 @@
 {
   "name": "agnese2018be",
-  "private": true,
+  "description": "Backend app for Precorsi 2018 Ferrara",
+  "version": "0.1.0",
   "dependencies": {
     "jquery": "^3.3.1"
   },
   "engines": {
+    "node": "10.0.0",
     "yarn": "1.9.4"
   }
 }
