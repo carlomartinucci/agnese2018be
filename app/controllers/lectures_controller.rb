@@ -20,7 +20,8 @@ class LecturesController < ApplicationController
   # POST /lectures
   # POST /lectures.json
   def create
-    @lecture = current_user.lectures.new(lecture_params)
+    @lecture = Lecture.new(lecture_params)
+    @lecture.user = current_user
 
     if @lecture.save
       redirect_to lectures_path, notice: 'Lecture was successfully created.'
@@ -33,7 +34,7 @@ class LecturesController < ApplicationController
   # PATCH/PUT /lectures/1.json
   def update
     if @lecture.update(lecture_params)
-      redirect_to @lecture, notice: 'Lecture was successfully updated.'
+      redirect_to lectures_path, notice: 'Lecture was successfully updated.'
     else
       render :edit
     end

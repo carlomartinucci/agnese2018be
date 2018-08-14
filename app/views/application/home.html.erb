@@ -5,7 +5,7 @@
 
   <hr class="my-4">
 
-  <% if current_user.lectures.none? %>
+  <% if current_lectures.none? %>
     <p>Innanzitutto aggiungi una lezione, poi potrai inserire le domande al suo interno.</p>
     <%= link_to 'Aggiungi la tua lezione', new_lecture_path, class: 'btn btn-primary btn-lg', role: 'button' %>
   <% else %>

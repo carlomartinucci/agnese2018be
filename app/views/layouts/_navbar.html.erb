@@ -26,14 +26,14 @@
           <% end %>
         </li>
 
-        <% if current_user.lectures.none? %>
+        <% if current_lectures.none? %>
           <li class="nav-item disabled">
             <%= link_to "#", class: 'nav-link' do %>
               Domande
             <% end %>
           </li>
-        <% elsif current_user.lectures.length == 1 %>
-          <% lecture = current_user.lectures.first %>
+        <% elsif current_lectures.length == 1 %>
+          <% lecture = current_lectures.first %>
           <li class="nav-item <%= 'active' if current_page?(lecture_questions_path(lecture)) %>">
             <%= link_to lecture_questions_path(lecture), class: 'nav-link' do %>
               Domande
@@ -47,8 +47,8 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <% current_user.lectures.each do |lecture| %>
-                <%= link_to lecture.title, lecture_questions_path(lecture), class: 'dropdown-item' %>
+              <% current_lectures.each do |lecture| %>
+                <%= link_to lecture.title, lecture_questions_path(lecture_id: lecture), class: 'dropdown-item' if lecture %>
               <% end %>
             </div>
           </li>

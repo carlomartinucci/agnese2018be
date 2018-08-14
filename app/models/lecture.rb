@@ -31,7 +31,11 @@ class Lecture < ApplicationRecord
   end
 
   def image
-    Rails.application.routes.url_helpers.url_for(background)
+    if background.attached?
+      Rails.application.routes.url_helpers.url_for(background)
+    else
+      'it-doesnt-look-like-anything-to-me-westworld.jpg'
+    end
   end
 
   private
