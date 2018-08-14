@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_action :authenticate_user!, except: [:home]
+  before_action :authenticate_user!, except: [:home, :googlefbd316a7a778fef4]
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
 
   def home
     redirect_to new_user_session_path if current_user.blank?
-    render 'home'
+  end
+
+  def googlefbd316a7a778fef4
+    render layout: false
   end
 end
