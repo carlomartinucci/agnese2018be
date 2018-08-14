@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">
+      Entra
+    </h1>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+
+          <%= f.check_box :remember_me, class: 'custom-control-input' %>
+          <%= f.label :remember_me, 'Ricordami?', class: 'custom-control-label' %>
+          </div>
+        </div>
+      <% end -%>
+
+      <div class="form-group">
+        <%= f.submit "Entra", class: 'btn btn-primary btn-lg' %>
+      </div>
+
+      <%= render "devise/shared/links" %>
+    <% end %>
+  </div>
+</div>

@@ -59,10 +59,10 @@
 
     <form class="form-inline my-2 my-lg-0">
       <% if current_user.present? %>
-        <%= link_to 'Log out', destroy_user_session_path, class: 'btn btn-outline-danger my-2 my-sm-0', method: :delete, data: { confirm: 'Sei sicuro di voler uscire?' } %>
+        <%= link_to 'Esci', destroy_user_session_path, class: 'btn btn-outline-danger my-2 my-sm-0', method: :delete, data: { confirm: 'Sei sicuro di voler uscire?' } %>
       <% else %>
-        <%= link_to 'Log in', new_user_session_path, class: 'btn btn-outline-success my-2 my-sm-0' %>
-        <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-info my-2 my-sm-0' %>
+        <%= link_to 'Entra', new_user_session_path, class: 'btn btn-outline-success my-2 my-sm-0' %>
+        <%= link_to 'Registrati', new_user_registration_path, class: 'btn btn-outline-success my-2 my-sm-0' %>
       <% end %>
     </form>
   </div>
