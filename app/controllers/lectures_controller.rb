@@ -5,12 +5,13 @@ class LecturesController < ApplicationController
   # GET /lectures
   # GET /lectures.json
   def index
-    @lectures = Lecture.order(:delivered_at)
+    @lectures = Lecture.where(user: current_user).order(:delivered_at)
   end
 
   # GET /lectures/new
   def new
     @lecture = Lecture.new
+    @lecture.user = current_user
   end
 
   # GET /lectures/1/edit
