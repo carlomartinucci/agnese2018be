@@ -21,5 +21,6 @@ Rails.application.routes.draw do
 
   devise_for :users
   get 'googlefbd316a7a778fef4', to: 'application#googlefbd316a7a778fef4'
+  get 'kaboom', to: 'application#kaboom'
   root to: 'application#home'
 end

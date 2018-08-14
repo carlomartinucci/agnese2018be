@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     render layout: false
   end
 
+  def kaboom
+    raise StandardError, 'Standard Error raised to test exceptions'
+  end
+
   private
     def current_lectures
       @current_lectures ||=
