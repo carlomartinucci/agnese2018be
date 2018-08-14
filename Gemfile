@@ -43,6 +43,7 @@ gem 'cancancan', '~> 2.0'
 gem 'acts_as_list'
 
 gem 'rack-cors'
+gem "google-cloud-storage", "~> 1.8", require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
