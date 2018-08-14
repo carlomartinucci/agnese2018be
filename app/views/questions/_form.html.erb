@@ -1,4 +1,4 @@
-<%= form_with(model: [@lecture, question], local: true) do |form| %>
+<%= form_with(model: question, local: true) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -11,47 +11,48 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="form-group">
+    <%= form.label :title, 'Titolo della domanda' %>
+    <%= form.text_field :title, placeholder: 'ad es: il cavallo di Napoleone', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+  <div class="form-group">
+    <%= form.label :description, 'Descrizione estesa della domanda' %>
+    <%= form.text_area :description, placeholder: 'ad es: di che colore era il cavallo bianco di Napoleone?', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :answer_a %>
-    <%= form.text_field :answer_a %>
+  <div class="form-group">
+    <%= form.label :answer_a, 'Risposta A' %>
+    <%= form.text_field :answer_a, placeholder: 'ad es: Bianco', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :answer_b %>
-    <%= form.text_field :answer_b %>
+  <div class="form-group">
+    <%= form.label :answer_b, 'Risposta B' %>
+    <%= form.text_field :answer_b, placeholder: 'ad es: Nero', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :answer_c %>
-    <%= form.text_field :answer_c %>
+  <div class="form-group">
+    <%= form.label :answer_c, 'Risposta C' %>
+    <%= form.text_field :answer_c, placeholder: 'ad es: Lo stesso colore di Furia', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :answer_d %>
-    <%= form.text_field :answer_d %>
+  <div class="form-group">
+    <%= form.label :answer_d, 'Risposta D' %>
+    <%= form.text_field :answer_d, placeholder: 'ad es: Grigio', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :answer_e %>
-    <%= form.text_field :answer_e %>
+  <div class="form-group">
+    <%= form.label :answer_e, 'Risposta E' %>
+    <%= form.text_field :answer_e, placeholder: 'ad es: Non si può sapere', class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :right_answer_letter %>
-    <%= form.text_field :right_answer_letter %>
+    <%= form.select :right_answer_letter, ['a', 'b', 'c', 'd', 'e'], {}, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Conferma', class: 'btn btn-primary btn-lg' %>
+    <%= link_to 'Annulla', lecture_questions_path(question.lecture), class: 'btn btn-outline-warning' %>
   </div>
 <% end %>
