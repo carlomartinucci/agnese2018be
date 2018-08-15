@@ -9,11 +9,18 @@
 
   <div class="question__move">
     <%= link_to move_question_path(question, 'higher'), method: :post, class: "#{'invisible' if question.first?}" do %>
-      up
+      <!-- up -->
+      <!-- ↑ -->
+      <%= "\u2b06" %>
+      <!-- <i class="material-icons"> -->
+      <!-- arrow_upward -->
+      <!-- </i> -->
       <%#= material_icon.arrow_upward %>
     <% end %>
     <%= link_to move_question_path(question, 'lower'), method: :post, class: "#{'invisible' if question.last?}" do %>
-      down
+      <!-- down -->
+      <!-- ↓ -->
+      <%= "\u2b07" %>
       <%#= material_icon.arrow_downward %>
     <% end %>
   </div>

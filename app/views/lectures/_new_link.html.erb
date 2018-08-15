@@ -3,9 +3,11 @@
     <%=l Time.now, format: :short %>
   </div>
 
-  <div class="card-header text-center">
+  <%= link_to new_lecture_path, class: 'card-header text-center text-primary' do %>
+  <!-- <div class="card-header text-center"> -->
     <%= material_icon.add.md_48.css_class('my-4') %>
-  </div>
+  <!-- </div> -->
+  <% end %>
 
   <div class="card-body">
     <h5 class="card-title">

@@ -1,12 +1,12 @@
 <h1>Lezioni</h1>
 
 <div class="row">
-  <div class="col-md-6 mb-4">
-    <%= render 'new_link' %>
-  </div>
   <% @lectures.each do |lecture| %>
     <div class="col-md-6 mb-4">
       <%= render lecture %>
     </div>
   <% end%>
+  <div class="col-md-6 mb-4">
+    <%= render 'new_link' %>
+  </div>
 </div>
