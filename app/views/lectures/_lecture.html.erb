@@ -3,7 +3,7 @@
     <%=l lecture.delivered_at, format: :short %>
   </div>
 
-  <%= image_tag url_for(lecture.image), class: 'responsive-image card-img-top', alt: lecture.title %>
+  <%= image_tag lecture.background, class: 'responsive-image card-img-top', alt: lecture.title %>
 
   <div class="card-body">
     <h5 class="card-title">
