@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <%= form.label :title, 'Titolo della lezione' %>
-    <%= form.text_field :title, class: 'form-control' %>
+    <%= form.text_field :title, placeholder: 'ad es: Logica e Matematica', class: 'form-control' %>
   </div>
 
   <div class="form-group">
@@ -22,13 +22,14 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :tutor, 'Nome del tutor' %>
-    <%= form.text_field :tutor, class: 'form-control' %>
+    <%= form.label :tutor, 'Il tuo nome' %>
+    <% value = lecture.tutor.present? ? lecture.tutor : current_user.name %>
+    <%= form.text_field :tutor, placeholder: 'ad es: Francesco', value: value, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :description, 'Descrizione della lezione' %>
-    <%= form.text_area :description, class: 'form-control' %>
+    <%= form.text_area :description, rows: 6, placeholder: 'ad es: Conviene rispondere solo quando si è sicuri oppure conviene tirare a indovinare? Se un mattone pesa un chilo più mezzo mattone, quanto pesa un mattone? Pesa più un chilo di paglia o un chilo di piombo? Risponderemo a queste e ad altre domande.', class: 'form-control' %>
   </div>
 
   <div class="form-group">
