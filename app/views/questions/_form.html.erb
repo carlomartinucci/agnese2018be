@@ -22,34 +22,32 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :answer_a, 'Risposta A' %>
-    <%= form.text_field :answer_a, required: true, placeholder: 'ad es: Bianco', class: 'form-control' %>
+    <%= form.label "answer_a", "Risposte" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :answer_b, 'Risposta B' %>
-    <%= form.text_field :answer_b, required: true, placeholder: 'ad es: Nero', class: 'form-control' %>
-  </div>
+  <% placeholder = {
+    'a' => 'ad es: Bianco',
+    'b' => 'ad es: Nero',
+    'c' => 'ad es: Lo stesso colore di Furia',
+    'd' => 'ad es: Grigio',
+    'e' => 'ad es: Non si può sapere',
+  } %>
+  <% ['a', 'b', 'c', 'd', 'e'].each do |letter| %>
+    <div class="row no-gutters">
+      <div class="col-auto">
+        <div class="custom-control custom-radio mt-2 mr-4">
+          <%= form.radio_button :right_answer_letter, letter, class: 'custom-control-input', checked: letter == 'a' %>
+          <%= form.label "right_answer_letter_#{letter}", letter.upcase, class: 'custom-control-label' %>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :answer_c, 'Risposta C' %>
-    <%= form.text_field :answer_c, required: true, placeholder: 'ad es: Lo stesso colore di Furia', class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :answer_d, 'Risposta D' %>
-    <%= form.text_field :answer_d, required: true, placeholder: 'ad es: Grigio', class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :answer_e, 'Risposta E' %>
-    <%= form.text_field :answer_e, required: true, placeholder: 'ad es: Non si può sapere', class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :right_answer_letter %>
-    <%= form.select :right_answer_letter, ['a', 'b', 'c', 'd', 'e'], {}, class: 'form-control' %>
-  </div>
+      <div class="col">
+        <div class="form-group">
+          <%= form.text_field "answer_#{letter}", required: true, placeholder: placeholder[letter], class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit 'Conferma', class: 'btn btn-primary btn-lg' %>
