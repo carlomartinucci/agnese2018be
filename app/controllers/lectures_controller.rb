@@ -25,7 +25,7 @@ class LecturesController < ApplicationController
     @lecture.user = current_user
 
     if @lecture.save
-      redirect_to lectures_path, notice: 'Lecture was successfully created.'
+      redirect_to lectures_path, notice: 'Lezione creata correttamente.'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class LecturesController < ApplicationController
   # PATCH/PUT /lectures/1.json
   def update
     if @lecture.update(lecture_params)
-      redirect_to lectures_path, notice: 'Lecture was successfully updated.'
+      redirect_to lectures_path, notice: 'Lezione aggiornata correttamente.'
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class LecturesController < ApplicationController
   # DELETE /lectures/1.json
   def destroy
     @lecture.destroy
-    redirect_to lectures_url, notice: 'Lecture was successfully destroyed.'
+    redirect_to lectures_url, notice: 'Lecture eliminata correttamente.'
   end
 
   private

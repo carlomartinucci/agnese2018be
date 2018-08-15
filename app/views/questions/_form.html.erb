@@ -13,37 +13,37 @@
 
   <div class="form-group">
     <%= form.label :title, 'Titolo della domanda' %>
-    <%= form.text_field :title, placeholder: 'ad es: il cavallo di Napoleone', class: 'form-control' %>
+    <%= form.text_field :title, required: true, placeholder: 'ad es: il cavallo di Napoleone', class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= form.label :description, 'Descrizione estesa della domanda' %>
-    <%= form.text_area :description, placeholder: 'ad es: di che colore era il cavallo bianco di Napoleone?', class: 'form-control' %>
+    <%= form.label :description, 'Domanda' %>
+    <%= form.text_area :description, required: true,placeholder: 'ad es: di che colore era il cavallo bianco di Napoleone?', class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :answer_a, 'Risposta A' %>
-    <%= form.text_field :answer_a, placeholder: 'ad es: Bianco', class: 'form-control' %>
+    <%= form.text_field :answer_a, required: true, placeholder: 'ad es: Bianco', class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :answer_b, 'Risposta B' %>
-    <%= form.text_field :answer_b, placeholder: 'ad es: Nero', class: 'form-control' %>
+    <%= form.text_field :answer_b, required: true, placeholder: 'ad es: Nero', class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :answer_c, 'Risposta C' %>
-    <%= form.text_field :answer_c, placeholder: 'ad es: Lo stesso colore di Furia', class: 'form-control' %>
+    <%= form.text_field :answer_c, required: true, placeholder: 'ad es: Lo stesso colore di Furia', class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :answer_d, 'Risposta D' %>
-    <%= form.text_field :answer_d, placeholder: 'ad es: Grigio', class: 'form-control' %>
+    <%= form.text_field :answer_d, required: true, placeholder: 'ad es: Grigio', class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :answer_e, 'Risposta E' %>
-    <%= form.text_field :answer_e, placeholder: 'ad es: Non si può sapere', class: 'form-control' %>
+    <%= form.text_field :answer_e, required: true, placeholder: 'ad es: Non si può sapere', class: 'form-control' %>
   </div>
 
   <div class="form-group">

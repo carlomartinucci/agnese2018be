@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
       @question.move_lower
     end
 
-    redirect_to lecture_questions_path(@question.lecture)
+    redirect_to lecture_questions_path(@question.lecture), notice: 'Domanda spostata correttamente.'
   end
 
   # GET /questions/1/edit
@@ -39,39 +39,29 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.lecture = @lecture
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+    if @question.save
+      redirect_to lecture_questions_path(@question.lecture), notice: 'Domanda creata correttamente.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+    if @question.update(question_params)
+      redirect_to lecture_questions_path(@question.lecture), notice: 'Domanda modificata correttamente.'
+    else
+      render :edit
     end
   end
 
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
+    lecture = @question.lecture
     @question.destroy
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to lecture_questions_path(lecture), notice: 'Domanda eliminata correttamente.'
   end
 
   private
