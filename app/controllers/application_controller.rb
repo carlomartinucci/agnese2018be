@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     raise StandardError, 'Standard Error raised to test exceptions'
   end
 
+  def test
+    # redirect_to root_path unless current_user&.admin?
+  end
+
   private
     def current_lectures
       @current_lectures ||=
