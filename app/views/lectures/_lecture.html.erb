@@ -3,7 +3,7 @@
     <%=l lecture.delivered_at, format: :short %>
   </div>
 
-  <%= image_tag lecture.background, class: 'responsive-image card-img-top', alt: lecture.title %>
+  <%= image_tag lecture.background.attached? ? lecture.background : 'it-doesnt-look-like-anything-to-me-westworld.jpg', class: 'responsive-image card-img-top', alt: lecture.title %>
 
   <div class="card-body">
     <h5 class="card-title">
