@@ -1,0 +1,3 @@
+<%= react_component("Question", @live_lecture.as_react_json, { prerender: true }) %>
+
+<%= link_to @live_lecture_action, @live_lecture, method: :patch, class: 'btn btn-lg btn-primary' if @live_lecture_action %>

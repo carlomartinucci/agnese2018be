@@ -1,1 +1,1 @@
-<%= react_component("Question", { question: Question.first.as_react_json }, { prerender: true }) %>
+<%= react_component("Question", LiveLecture.first&.as_react_json || {}, { prerender: true }) %>

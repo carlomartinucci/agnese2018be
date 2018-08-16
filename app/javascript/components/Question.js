@@ -13,13 +13,12 @@ class QuestionContainer extends React.Component {
 }
 
 // TODO: dividi in QuestionOpen e in QuestionClosed
-const Question = ({ question }) => {
+const Question = ({ question = {}, lecture = {} }) => {
   const {
     uuid,
-    position,
+    position = 0,
     title,
     description,
-    lecture = {},
     answerA,
     answerB,
     answerC,
@@ -28,9 +27,15 @@ const Question = ({ question }) => {
     rightAnswerLetter,
     setAnswer = console.log
   } = question
+
+  const {
+    lectureTitle,
+    questionsCount = 0
+  } = lecture
+
   return <div className="card">
     <div className="card-header">
-      {position}/{lecture.questionsCount} {lecture.title}
+      {position}/{questionsCount} {lectureTitle}
     </div>
 
     <div className="card-body">
@@ -57,7 +62,8 @@ const Question = ({ question }) => {
 }
 
 Question.propTypes = {
-  question: PropTypes.object
+  lecture: PropTypes.object.isRequired,
+  question: PropTypes.object.isRequired,
 };
 
 export default Question

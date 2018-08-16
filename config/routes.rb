@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   default_url_options host: Rails.application.config.default_url_host
 
+  resources :live_lectures, only: [:create, :show, :update]
   resources :answers, only: [:index, :show, :create, :update]
   resources :lectures, only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :questions, shallow: true

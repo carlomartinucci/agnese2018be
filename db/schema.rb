@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_16_194038) do
+ActiveRecord::Schema.define(version: 2018_08_16_201406) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2018_08_16_194038) do
     t.integer "questions_count", default: 0
     t.index ["user_id"], name: "index_lectures_on_user_id"
     t.index ["uuid"], name: "index_lectures_on_uuid"
+  end
+
+  create_table "live_lectures", force: :cascade do |t|
+    t.integer "lecture_id"
+    t.integer "question_id"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lecture_id"], name: "index_live_lectures_on_lecture_id"
+    t.index ["question_id"], name: "index_live_lectures_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|

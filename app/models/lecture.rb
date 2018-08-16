@@ -2,16 +2,17 @@
 #
 # Table name: lectures
 #
-#  id           :integer          not null, primary key
-#  title        :string
-#  delivered_at :datetime
-#  tutor        :string
-#  description  :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :integer
-#  uuid         :string
-#  visible      :boolean          default(FALSE)
+#  id              :integer          not null, primary key
+#  title           :string
+#  delivered_at    :datetime
+#  tutor           :string
+#  description     :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  user_id         :integer
+#  uuid            :string
+#  visible         :boolean          default(FALSE)
+#  questions_count :integer          default(0)
 #
 
 class Lecture < ApplicationRecord
