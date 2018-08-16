@@ -1,3 +1,1 @@
-<%= javascript_pack_tag 'hello_react' %>
-
-<%= react_component("HelloWorld", { greeting_word: "Hello camelize_props" }, { prerender: true }) %>
+<%= react_component("Question", { question: Question.first.as_react_json }, { prerender: true }) %>

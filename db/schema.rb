@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_13_154003) do
+ActiveRecord::Schema.define(version: 2018_08_16_194038) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2018_08_13_154003) do
     t.integer "user_id"
     t.string "uuid"
     t.boolean "visible", default: false
+    t.integer "questions_count", default: 0
     t.index ["user_id"], name: "index_lectures_on_user_id"
     t.index ["uuid"], name: "index_lectures_on_uuid"
   end

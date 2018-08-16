@@ -19,7 +19,7 @@
 #
 
 class Question < ApplicationRecord
-  belongs_to :lecture
+  belongs_to :lecture, counter_cache: true
   acts_as_list scope: :lecture
 
   before_validation :set_uuid
@@ -34,6 +34,25 @@ class Question < ApplicationRecord
   validates :answer_d, presence: true
   validates :answer_e, presence: true
   validates :right_answer_letter, presence: true, inclusion: { in: %w[a b c d e] }
+
+  def as_react_json
+    {
+      uuid: uuid,
+      position: position,
+      title: title,
+      description: description,
+      lecture: {
+        title: lecture.title,
+        questions_count: lecture.questions_count
+      },
+      answer_a: answer_a,
+      answer_b: answer_b,
+      answer_c: answer_c,
+      answer_d: answer_d,
+      answer_e: answer_e,
+      right_answer_letter: right_answer_letter
+    }
+  end
 
   private
 
