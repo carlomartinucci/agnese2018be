@@ -28,3 +28,8 @@
 # Ignore dev and test db
 agnese2018be_development
 agnese2018be_test
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
