@@ -5,14 +5,14 @@ class HelloWorld extends React.Component {
   render () {
     return (
       <React.Fragment>
-        Greeting: {this.props.greeting}
+        Greeting: {this.props.greetingWord}
       </React.Fragment>
     );
   }
 }
 
 HelloWorld.propTypes = {
-  greeting: PropTypes.string
+  greetingWord: PropTypes.string
 };
 
 export default HelloWorld
