@@ -1,0 +1,15 @@
+<h1>Lezioni in corso</h1>
+
+<div class="row">
+  <% if @live_lectures.any? %>
+    <% @live_lectures.each do |live_lecture| %>
+      <div class="col-md-6 mb-4">
+        <%= render partial: 'live_lecture', object: live_lecture %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="col">
+      Nessuna lezione in corso per il momento...
+    </div>
+  <% end %>
+</div>

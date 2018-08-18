@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :update]
+  protect_from_forgery with: :null_session, only: [:create]
 
   # lecture_uuid
   # question_uuid
@@ -19,16 +20,29 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
+    sleep(rand(1..5)) if Rails.env.development?
+    answer = Answer.new(params.require(:answer).permit(:question_uuid, :letter))
+    answer.user_slug = current_user_slug
+    saved = answer.save
+    answers = Answer.where(user_slug: current_user_slug).as_react_json
 
     respond_to do |format|
-      if @answer.save
-        format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
-        format.json { render :show, status: :created, location: @answer }
+      if saved
+        message = 'Risposta registrata correttamente.'
+        format.html { redirect_to lives_path(@live_lecture), notice: message }
+        format.json { render json: { result: :success, message: message, answers: answers } }
       else
-        format.html { render :new }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
+        message = answer.errors.full_messages.join('. ')
+        format.html { redirect_to lives_path(@live_lecture), alert: message }
+        format.json { render json: { result: :error, message: message, answers: answers } }
       end
+    end
+  rescue ActiveRecord::StatementInvalid, StandardError => e
+    answers = Answer.where(user_slug: current_user_slug).as_react_json
+
+    respond_to do |format|
+      format.html { redirect_to lives_path(@live_lecture), alert: e.message }
+      format.json { render json: { result: :error, message: e.message, answers: answers } }
     end
   end
 

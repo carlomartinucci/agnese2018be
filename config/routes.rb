@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   default_url_options host: Rails.application.config.default_url_host
 
+  resources :lives, only: [:create, :index, :show, :edit, :update]
+
   resources :live_lectures, only: [:create, :show, :update]
   resources :answers, only: [:index, :show, :create, :update]
   resources :lectures, only: [:index, :new, :edit, :create, :update, :destroy] do
@@ -12,7 +14,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :lectures, only: [:index, :show]
       resources :questions, only: [:show]
-      resources :answers, only: [:show] do
+      resources :answers, only: [:show, :create] do
         member do
           put '/', to: 'answers#first_or_create'
         end

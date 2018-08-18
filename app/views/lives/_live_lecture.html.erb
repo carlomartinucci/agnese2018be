@@ -1,0 +1,32 @@
+<% lecture = live_lecture.lecture %>
+
+<div class="card">
+  <div class="card-header">
+    <%=l live_lecture.created_at, format: :short %>, <%= live_lecture.question&.position || 0 %>/<%= lecture.questions_count %>
+  </div>
+
+  <%= image_tag lecture.background.attached? ? lecture.background : 'it-doesnt-look-like-anything-to-me-westworld.jpg', class: 'responsive-image card-img-top', alt: lecture.title %>
+
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= lecture.title %>
+    </h5>
+
+    <h6 class="card-subtitle mb-2 text-muted">
+      <%= lecture.tutor %>
+    </h6>
+
+    <p class="card-text">
+      <%= lecture.description %>
+    </p>
+
+    <% if local_assigns[:wait] %>
+      <p class="card-text text-center">
+        Ascolta il tutor: le domande inizieranno tra poco!
+      </p>
+    <% else %>
+      <%= link_to 'Partecipa', life_path(live_lecture.uuid), class: 'btn btn-lg btn-primary' %>
+    <% end %>
+  </div>
+</div>
+

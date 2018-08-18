@@ -21,6 +21,7 @@
 class Question < ApplicationRecord
   belongs_to :lecture, counter_cache: true
   acts_as_list scope: :lecture
+  has_many :answers, foreign_key: :question_uuid, primary_key: :uuid, dependent: :destroy
 
   before_validation :set_uuid
 

@@ -8,6 +8,7 @@
 #  state       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  uuid        :string
 #
 
 class LiveLecture < ApplicationRecord
@@ -21,7 +22,13 @@ class LiveLecture < ApplicationRecord
     ENDED = 'live_lecture.state.ended',
   ]
 
+  before_validation :set_uuid
+
   validates :state, presence: true, inclusion: { in: STATES }
+  validates :uuid, presence: true, uniqueness: true
+
+  scope :with_questions, -> { includes(:lecture).where.not(lectures: {questions_count: 0}) }
+  scope :live, -> { where.not(state: ENDED) }
 
   def next
     case state
@@ -45,11 +52,16 @@ class LiveLecture < ApplicationRecord
   def as_react_json
     case state
     when STARTED
+      background = lecture.background.attached? ? Rails.application.routes.url_helpers.url_for(lecture.background) : 'it-doesnt-look-like-anything-to-me-westworld.jpg'
       {
         state: state,
         lecture: {
           title: lecture.title,
-          questions_count: lecture.questions_count
+          description: lecture.description,
+          questions_count: lecture.questions_count,
+          tutor: lecture.tutor,
+          created_at: I18n.l(lecture.created_at, format: :short),
+          background: background
         }
       }
     when QUESTION_OPEN
@@ -92,13 +104,29 @@ class LiveLecture < ApplicationRecord
         }
       }
     when ENDED
+      background = lecture.background.attached? ? Rails.application.routes.url_helpers.url_for(lecture.background) : 'it-doesnt-look-like-anything-to-me-westworld.jpg'
       {
         state: state,
         lecture: {
           title: lecture.title,
-          questions_count: lecture.questions_count
+          description: lecture.description,
+          questions_count: lecture.questions_count,
+          tutor: lecture.tutor,
+          created_at: I18n.l(lecture.created_at, format: :short),
+          background: background
         }
       }
     end
   end
+
+  private
+
+    def set_uuid
+      tokens = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
+
+      while self.uuid.blank?
+        uuid = tokens.sample(6).join
+        self.uuid = uuid if LiveLecture.where(uuid: uuid).none?
+      end
+    end
 end

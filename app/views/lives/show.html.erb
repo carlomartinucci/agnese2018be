@@ -2,5 +2,3 @@
   live_lecture: @live_lecture.as_react_json,
   answers: @answers.as_react_json
 }, { prerender: false }) %>
-
-<%= link_to @live_lecture_action, @live_lecture, method: :patch, class: 'btn btn-lg btn-primary' if @live_lecture_action %>

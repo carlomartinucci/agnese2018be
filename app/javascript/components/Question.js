@@ -1,19 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-// TODO: a seconda, mostra QuestionOpen o QuestionClosed
-class QuestionContainer extends React.Component {
-  render () {
-    return (
-      <React.Fragment>
-        Question: {this.props.question}
-      </React.Fragment>
-    );
-  }
-}
-
-// TODO: dividi in QuestionOpen e in QuestionClosed
-const Question = ({ question = {}, lecture = {} }) => {
+const Question = ({ question = {}, lecture = {}, answer = {}, setAnswer }) => {
   const {
     uuid,
     position = 0,
@@ -24,14 +12,17 @@ const Question = ({ question = {}, lecture = {} }) => {
     answerC,
     answerD,
     answerE,
-    rightAnswerLetter,
-    setAnswer = console.log
   } = question
 
   const {
-    lectureTitle,
+    title: lectureTitle,
     questionsCount = 0
   } = lecture
+
+  const {
+    isRight,
+    letter: answerLetter
+  } = answer
 
   return <div className="card">
     <div className="card-header">
@@ -52,18 +43,31 @@ const Question = ({ question = {}, lecture = {} }) => {
     </div>
 
     <div className="list-group list-group-flush">
-      {['a', 'b', 'c', 'd', 'e'].map(letter =>
-        <a key={letter} onClick={() => setAnswer(letter)} className="list-group-item list-group-item-action">
+      {['a', 'b', 'c', 'd', 'e'].map(letter => {
+        let letterClass = ''
+        if (answerLetter && answerLetter === letter && isRight) {
+          letterClass += ' bg-success'
+        } else if (answerLetter && answerLetter === letter) {
+          letterClass += ' bg-danger'
+        } else if (answerLetter) {
+          letterClass += ' disabled'
+        }
+        return <a
+          key={letter}
+          onClick={(_event) => setAnswer({ questionUuid: uuid, letter })}
+          className={`list-group-item list-group-item-action${letterClass}`}>
           {letter.toUpperCase()}: { eval(`answer${letter.toUpperCase()}`) }
         </a>
-      )}
+      })}
     </div>
   </div>
 }
 
 Question.propTypes = {
-  lecture: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
+  lecture: PropTypes.object.isRequired,
+  answer: PropTypes.object.isRequired,
+  setAnswer: PropTypes.func
 };
 
 export default Question
