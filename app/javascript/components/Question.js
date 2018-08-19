@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const Question = ({ question, lecture, answer, setAnswer, isAnswerLoading, children }) => {
+const Question = ({ question, lecture, children }) => {
   return <div className="card">
     <div className="card-header">
       {question.position}/{lecture.questionsCount} {lecture.title}
@@ -24,6 +24,11 @@ const Question = ({ question, lecture, answer, setAnswer, isAnswerLoading, child
   </div>
 }
 
+Question.propTypes = {
+  question: PropTypes.object.isRequired,
+  lecture: PropTypes.object.isRequired,
+};
+
 export const QuestionOpen = props => <Question {...props}>
   <div className="list-group list-group-flush">
     {['a', 'b', 'c', 'd', 'e'].map(letter => {
@@ -32,6 +37,7 @@ export const QuestionOpen = props => <Question {...props}>
         onClick={(_event) => props.setAnswer({ questionUuid: props.question.uuid, letter })}
         className={`list-group-item list-group-item-action`}>
         {letter.toUpperCase()}: { props.question[`answer${letter.toUpperCase()}`] }
+        {props.tutorData && props.tutorData.answers && <span className="badge">{props.tutorData.answers[letter] || 0}</span>}
       </a>
     })}
   </div>
@@ -71,21 +77,15 @@ export const QuestionClosed = props => <Question {...props}>
   </ul>
 </Question>
 
-Question.propTypes = {
-  question: PropTypes.object.isRequired,
-  lecture: PropTypes.object.isRequired,
-  setAnswer: PropTypes.func,
-  answer: PropTypes.object,
-  isAnswerLoading: PropTypes.bool,
-};
-
 QuestionOpen.propTypes = {
+  tutorData: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   lecture: PropTypes.object.isRequired,
   setAnswer: PropTypes.func.isRequired,
 };
 
 QuestionAnswered.propTypes = {
+  tutorData: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   lecture: PropTypes.object.isRequired,
   answer: PropTypes.object.isRequired,
@@ -93,6 +93,7 @@ QuestionAnswered.propTypes = {
 };
 
 QuestionClosed.propTypes = {
+  tutorData: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   lecture: PropTypes.object.isRequired,
   answer: PropTypes.object.isRequired,

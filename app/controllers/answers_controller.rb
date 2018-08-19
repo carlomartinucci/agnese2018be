@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :update]
   protect_from_forgery with: :null_session, only: [:create]
+  skip_before_action :authenticate_user!, only: [:create]
 
   # lecture_uuid
   # question_uuid

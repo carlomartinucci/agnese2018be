@@ -25,6 +25,7 @@ class LiveContainer extends React.Component {
     const setAnswer = question && this.props.setAnswer
 
     return <Live
+      tutorData={this.props.tutorData}
       state={state}
       lecture={lecture}
       question={question}
@@ -36,25 +37,26 @@ class LiveContainer extends React.Component {
 }
 
 LiveContainer.propTypes = {
+  tutorData: PropTypes.object,
   liveLecture: PropTypes.object.isRequired,
   answers: PropTypes.object.isRequired,
   isAnswerLoading: PropTypes.bool.isRequired,
   setAnswer: PropTypes.func.isRequired,
 };
 
-const Live = ({ state, lecture, question, answer, isAnswerLoading, setAnswer }) => {
+const Live = ({ tutorData, state, lecture, question, answer, isAnswerLoading, setAnswer }) => {
   switch(state) {
     case 'live_lecture.state.started':
       return <Lecture lecture={lecture} />
     case 'live_lecture.state.question_open':
     if (answer) {
       const { isRight, ...answerWithoutIsRight } = answer
-      return <QuestionAnswered question={question} lecture={lecture} answer={answerWithoutIsRight} isAnswerLoading={isAnswerLoading} />
+      return <QuestionAnswered tutorData={tutorData || {}} question={question} lecture={lecture} answer={answerWithoutIsRight} isAnswerLoading={isAnswerLoading} />
     } else {
-      return <QuestionOpen question={question} lecture={lecture} setAnswer={setAnswer} />
+      return <QuestionOpen tutorData={tutorData || {}} question={question} lecture={lecture} setAnswer={setAnswer} />
     }
     case 'live_lecture.state.question_closed':
-      return <QuestionClosed question={question} lecture={lecture} answer={answer || {letter: ''}} />
+      return <QuestionClosed tutorData={tutorData || {}} question={question} lecture={lecture} answer={answer || {letter: ''}} />
     case 'live_lecture.state.ended':
       return <Lecture lecture={lecture} ended />
       // return <Results />
@@ -63,6 +65,7 @@ const Live = ({ state, lecture, question, answer, isAnswerLoading, setAnswer }) 
 }
 
 Live.propTypes = {
+  tutorData: PropTypes.object,
   state: PropTypes.string.isRequired,
   lecture: PropTypes.object.isRequired,
   question: PropTypes.object,
