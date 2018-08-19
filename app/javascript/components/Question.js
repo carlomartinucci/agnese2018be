@@ -40,11 +40,15 @@ export const QuestionOpen = props => <Question {...props}>
 export const QuestionAnswered = props => <Question {...props}>
   <ul className="list-group list-group-flush">
     {['a', 'b', 'c', 'd', 'e'].map(letter => {
+      let symbol
+      if (props.answer.letter === letter) {
+        symbol = props.isAnswerLoading && 'sync'
+      }
       return <li
         key={letter}
         className={`list-group-item ${props.answer.letter === letter && 'bg-primary'}`}>
         {letter.toUpperCase()}: { props.question[`answer${letter.toUpperCase()}`] }
-        {props.answer.letter === letter && props.isAnswerLoading && '...loading'}
+        {symbol && <i className="material-icons float-right md-24" style={{margin: '-3px'}}>{symbol}</i>}
       </li>
     })}
   </ul>
@@ -53,15 +57,15 @@ export const QuestionAnswered = props => <Question {...props}>
 export const QuestionClosed = props => <Question {...props}>
   <ul className="list-group list-group-flush">
     {['a', 'b', 'c', 'd', 'e'].map(letter => {
-      let successSymbol
+      let symbol
       if (props.answer.letter === letter) {
-        successSymbol = props.answer.isRight ? 'yes!' : 'no'
+        symbol = props.answer.isRight ? 'check' : 'close'
       }
       return <li
         key={letter}
         className={`list-group-item ${props.answer.letter === letter && 'bg-primary'}`}>
         {letter.toUpperCase()}: { props.question[`answer${letter.toUpperCase()}`] }
-        {successSymbol}
+        {symbol && <i className="material-icons float-right md-24" style={{margin: '-3px'}}>{symbol}</i>}
       </li>
     })}
   </ul>

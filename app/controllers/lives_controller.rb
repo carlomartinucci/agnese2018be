@@ -25,8 +25,6 @@ class LivesController < ApplicationController
   def edit
     authorize! :edit, @live_lecture
 
-    @answers = Answer.none
-
     @live_lecture_action =
       case @live_lecture.state
       when LiveLecture::STARTED
