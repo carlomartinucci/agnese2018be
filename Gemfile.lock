@@ -211,6 +211,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.0.2)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -305,6 +306,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.2.0)
   react-rails
+  redis (~> 4.0)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
