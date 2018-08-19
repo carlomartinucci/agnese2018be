@@ -4,36 +4,28 @@ import Lecture from "./Lecture"
 import { QuestionAnswered, QuestionOpen, QuestionClosed } from "./Question"
 import Results from "./Results"
 import { withAnswers } from "./withAnswers"
+import { withLiveLectureAndTutorData } from "./withLiveLectureAndTutorData"
 
-class LiveContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      liveLecture: props.liveLecture,
-    };
-  }
+const LiveContainer = (props) => {
+  const {
+    state,
+    lecture,
+    question,
+  } = props.liveLecture
 
-  render() {
-    const {
-      state,
-      lecture,
-      question,
-    } = this.state.liveLecture
+  const answer = question && props.answers[question.uuid]
+  const isAnswerLoading = question && props.isAnswerLoading
+  const setAnswer = question && props.setAnswer
 
-    const answer = question && this.props.answers[question.uuid]
-    const isAnswerLoading = question && this.props.isAnswerLoading
-    const setAnswer = question && this.props.setAnswer
-
-    return <Live
-      tutorData={this.props.tutorData}
-      state={state}
-      lecture={lecture}
-      question={question}
-      answer={answer}
-      isAnswerLoading={isAnswerLoading}
-      setAnswer={setAnswer}
-    />
-  }
+  return <Live
+    tutorData={props.tutorData}
+    state={state}
+    lecture={lecture}
+    question={question}
+    answer={answer}
+    isAnswerLoading={isAnswerLoading}
+    setAnswer={setAnswer}
+  />
 }
 
 LiveContainer.propTypes = {
@@ -74,4 +66,4 @@ Live.propTypes = {
   setAnswer: PropTypes.func,
 };
 
-export default withAnswers(LiveContainer);
+export default withLiveLectureAndTutorData(withAnswers(LiveContainer));
