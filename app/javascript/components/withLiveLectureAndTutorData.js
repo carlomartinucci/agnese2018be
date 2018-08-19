@@ -30,6 +30,8 @@ export const withLiveLectureAndTutorData = Component => {
 
     addAnswer(data) {
       this.setState(state => {
+        if (data.answer.question_uuid !== state.liveLecture.question.uuid) return
+
         const letter = data.answer.letter
         const answers = { ...state.tutorData.answers }
         answers[letter] || (answers[letter] = 0)

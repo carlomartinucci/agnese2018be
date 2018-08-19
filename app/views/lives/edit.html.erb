@@ -1,7 +1,9 @@
 <%= react_component("Live", {
   live_lecture: @live_lecture.as_react_json,
   answers: Answer.none.as_react_json,
-  tutor_data: { answers: @live_lecture.question&.answers&.group(:letter)&.count }
+  tutor_data: {
+    answers: @live_lecture.question&.answers&.group(:letter)&.count
+  }
 }, { prerender: false }) %>
 
 <%= link_to @live_lecture_action, life_path(@live_lecture.uuid), method: :patch, class: 'btn btn-lg btn-primary' if @live_lecture_action %>
