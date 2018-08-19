@@ -54,7 +54,7 @@ const Live = ({ state, lecture, question, answer, isAnswerLoading, setAnswer }) 
       return <QuestionOpen question={question} lecture={lecture} setAnswer={setAnswer} />
     }
     case 'live_lecture.state.question_closed':
-      return <QuestionClosed question={question} lecture={lecture} answer={answer} />
+      return <QuestionClosed question={question} lecture={lecture} answer={answer || {letter: ''}} />
     case 'live_lecture.state.ended':
       return <Lecture lecture={lecture} ended />
       // return <Results />
