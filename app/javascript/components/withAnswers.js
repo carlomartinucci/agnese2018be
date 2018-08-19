@@ -4,9 +4,9 @@ import fetch from 'isomorphic-fetch'
 
 import { getDisplayName } from './utils'
 
-// pass down answers, answerLoading, setAnswer
+// pass down answers, isAnswerLoading, setAnswer
 // setAnswer is a function that:
-//   1. update the state with answer and answerLoading
+//   1. update the state with answer and isAnswerLoading
 //   2. post the answer to /answers
 //   3. returns ok or error
 //   4. reupdate answers
@@ -19,14 +19,14 @@ export const withAnswers = Component => {
       this.postAnswer = this.postAnswer.bind(this);
       this.state = {
         answers: props.answers,
-        answerLoading: false,
+        isAnswerLoading: false,
       };
     }
 
     setAnswer(answer) {
       this.setState(state => ({
         answers: { ...state.answers, [answer.questionUuid]: answer },
-        answerLoading: true,
+        isAnswerLoading: true,
       }), () => this.postAnswer(answer))
     }
 
@@ -54,19 +54,19 @@ export const withAnswers = Component => {
       .then(json => {
         if (!json){
           this.setState({
-            answerLoading: false,
+            isAnswerLoading: false,
             message: "Could not obtain an answer from the server. :( Please refresh the page and retry, or contact an admin.",
           })
         } else if (json.result === 'error') {
           this.setState({
             answers: json.answers,
-            answerLoading: false,
+            isAnswerLoading: false,
             message: json.message,
           })
         } else if (json.result === 'success') {
           this.setState({
             answers: json.answers,
-            answerLoading: false,
+            isAnswerLoading: false,
             message: json.message,
           })
         }
@@ -80,7 +80,7 @@ export const withAnswers = Component => {
       return (
         <Component
           answers={injectedAnswers}
-          answerLoading={this.state.answerLoading}
+          isAnswerLoading={this.state.isAnswerLoading}
           setAnswer={this.setAnswer}
           {...passThroughProps}
         />

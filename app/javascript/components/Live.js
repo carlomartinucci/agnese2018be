@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Lecture from "./Lecture"
-import Question from "./Question"
+import { QuestionAnswered, QuestionOpen, QuestionClosed } from "./Question"
 import Results from "./Results"
 import { withAnswers } from "./withAnswers"
 
@@ -20,15 +20,17 @@ class LiveContainer extends React.Component {
       question,
     } = this.state.liveLecture
 
-    const answer = this.props.answers[question && question.uuid] || { letter: null }
+    const answer = question && this.props.answers[question.uuid]
+    const isAnswerLoading = question && this.props.isAnswerLoading
+    const setAnswer = question && this.props.setAnswer
 
     return <Live
       state={state}
       lecture={lecture}
       question={question}
       answer={answer}
-      answerLoading={this.props.answerLoading}
-      setAnswer={question ? this.props.setAnswer : undefined}
+      isAnswerLoading={isAnswerLoading}
+      setAnswer={setAnswer}
     />
   }
 }
@@ -36,18 +38,23 @@ class LiveContainer extends React.Component {
 LiveContainer.propTypes = {
   liveLecture: PropTypes.object.isRequired,
   answers: PropTypes.object.isRequired,
+  isAnswerLoading: PropTypes.bool.isRequired,
   setAnswer: PropTypes.func.isRequired,
-  answerLoading: PropTypes.bool.isRequired,
 };
 
-const Live = ({ state, lecture, question, answer, setAnswer }) => {
+const Live = ({ state, lecture, question, answer, isAnswerLoading, setAnswer }) => {
   switch(state) {
     case 'live_lecture.state.started':
       return <Lecture lecture={lecture} />
     case 'live_lecture.state.question_open':
-      return <Question question={question} lecture={lecture} answer={answer} setAnswer={setAnswer} />
+    if (answer) {
+      const { isRight, ...answerWithoutIsRight } = answer
+      return <QuestionAnswered question={question} lecture={lecture} answer={answerWithoutIsRight} isAnswerLoading={isAnswerLoading} />
+    } else {
+      return <QuestionOpen question={question} lecture={lecture} setAnswer={setAnswer} />
+    }
     case 'live_lecture.state.question_closed':
-      return <Question question={question} lecture={lecture} answer={answer} setAnswer={() => {}} />
+      return <QuestionClosed question={question} lecture={lecture} answer={answer} />
     case 'live_lecture.state.ended':
       return <Lecture lecture={lecture} ended />
       // return <Results />
@@ -60,6 +67,7 @@ Live.propTypes = {
   lecture: PropTypes.object.isRequired,
   question: PropTypes.object,
   answer: PropTypes.object,
+  isAnswerLoading: PropTypes.bool,
   setAnswer: PropTypes.func,
 };
 

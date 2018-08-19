@@ -29,12 +29,13 @@ class Answer < ApplicationRecord
     {
       user_slug: user_slug,
       letter: letter,
-      question_uuid: question_uuid
+      question_uuid: question_uuid,
+      is_right: right?
     }
   end
 
   def self.as_react_json
-    current_scope.map { |answer| [answer.question_uuid, answer.as_react_json  ] }.to_h
+    current_scope.includes(:question).map { |answer| [answer.question_uuid, answer.as_react_json  ] }.to_h
   end
 
   private
