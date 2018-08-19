@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   default_url_options host: Rails.application.config.default_url_host
 
+  # Serve websocket cable requests in-process
+  mount ActionCable.server => '/cable'
+
   resources :lives, only: [:create, :index, :show, :edit, :update]
 
   resources :live_lectures, only: [:create, :show, :update]

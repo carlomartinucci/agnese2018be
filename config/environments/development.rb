@@ -64,5 +64,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # The default Action Cable URI is ws://localhost:3000/cable
+  config.action_cable.url = 'ws://localhost:3000/cable'
+
   config.default_url_host = 'localhost:3000'
 end

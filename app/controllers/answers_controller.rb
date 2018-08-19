@@ -29,6 +29,8 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if saved
         message = 'Risposta registrata correttamente.'
+        # Notify tutor
+        ActionCable.server.broadcast 'answers', answer: answer.as_react_json
         format.html { redirect_to lives_path(@live_lecture), notice: message }
         format.json { render json: { result: :success, message: message, answers: answers } }
       else
