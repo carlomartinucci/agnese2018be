@@ -21,14 +21,20 @@ export const withLiveLectureAndTutorData = Component => {
 
     componentDidMount() {
       if (!this.state.tutorData) return
+      if (!this.state.liveLecture.question) return
       const cable = ActionCable.createConsumer(CABLE_ENDPOINT)
 
-      cable.subscriptions.create('AnswersChannel', {
+      console.log('question_uuid:', this.state.liveLecture.question.uuid)
+      cable.subscriptions.create({
+        channel: 'AnswersChannel',
+        question_uuid: this.state.liveLecture.question.uuid,
+      }, {
         received: this.addAnswer
       });
     }
 
     addAnswer(data) {
+      console.log('addAnswer', data)
       this.setState(state => {
         if (data.answer.question_uuid !== state.liveLecture.question.uuid) return
 
