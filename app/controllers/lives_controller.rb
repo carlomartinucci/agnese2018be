@@ -1,5 +1,5 @@
 class LivesController < ApplicationController
-  before_action :set_live_lecture, only: [:show, :edit, :update]
+  before_action :set_live_lecture, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def create
@@ -52,6 +52,12 @@ class LivesController < ApplicationController
         { alert: "C'è stato un errore..." }
       end
     redirect_to edit_life_path(@live_lecture.uuid), flash_message
+  end
+
+  def destroy
+    authorize! :end, @live_lecture
+    @live_lecture.update(state: LiveLecture::ENDED, question: nil)
+    redirect_to request.referer, notice: 'LIVE terminato correttamente.'
   end
 
   private

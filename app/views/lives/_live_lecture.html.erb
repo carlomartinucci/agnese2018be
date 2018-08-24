@@ -27,6 +27,9 @@
     <% else %>
       <%= link_to 'Partecipa', life_path(live_lecture.uuid), class: 'btn btn-lg btn-primary' %>
     <% end %>
+    <% if can? :end, live_lecture %>
+      <%= link_to 'Termina', life_path(live_lecture.uuid), method: :delete, class: 'btn btn-sm btn-danger float-right' %>
+    <% end %>
   </div>
 </div>
 
