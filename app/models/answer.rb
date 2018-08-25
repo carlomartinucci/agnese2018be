@@ -26,12 +26,12 @@ class Answer < ApplicationRecord
   end
 
   def as_react_json
-    {
+    React.camelize_props(
       user_slug: user_slug,
       letter: letter,
       question_uuid: question_uuid,
       is_right: right?
-    }
+    )
   end
 
   def self.as_react_json

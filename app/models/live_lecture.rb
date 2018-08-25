@@ -53,7 +53,8 @@ class LiveLecture < ApplicationRecord
     case state
     when STARTED
       background = lecture.background.attached? ? Rails.application.routes.url_helpers.url_for(lecture.background) : 'it-doesnt-look-like-anything-to-me-westworld.jpg'
-      {
+      React.camelize_props(
+        uuid: uuid,
         state: state,
         lecture: {
           title: lecture.title,
@@ -63,9 +64,10 @@ class LiveLecture < ApplicationRecord
           created_at: I18n.l(lecture.created_at, format: :short),
           background: background
         }
-      }
+      )
     when QUESTION_OPEN
-      {
+      React.camelize_props(
+        uuid: uuid,
         state: state,
         lecture: {
           title: lecture.title,
@@ -82,9 +84,10 @@ class LiveLecture < ApplicationRecord
           answer_d: question.answer_d,
           answer_e: question.answer_e
         }
-      }
+      )
     when QUESTION_CLOSED
-      {
+      React.camelize_props(
+        uuid: uuid,
         state: state,
         lecture: {
           title: lecture.title,
@@ -102,10 +105,11 @@ class LiveLecture < ApplicationRecord
           answer_e: question.answer_e,
           right_answer_letter: question.right_answer_letter
         }
-      }
+      )
     when ENDED
       background = lecture.background.attached? ? Rails.application.routes.url_helpers.url_for(lecture.background) : 'it-doesnt-look-like-anything-to-me-westworld.jpg'
-      {
+      React.camelize_props(
+        uuid: uuid,
         state: state,
         lecture: {
           title: lecture.title,
@@ -115,7 +119,7 @@ class LiveLecture < ApplicationRecord
           created_at: I18n.l(lecture.created_at, format: :short),
           background: background
         }
-      }
+      )
     end
   end
 

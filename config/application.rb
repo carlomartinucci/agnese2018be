@@ -18,6 +18,6 @@ module Agnese2018be
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.react.camelize_props = true # default false
+    config.react.camelize_props = false # default false
   end
 end

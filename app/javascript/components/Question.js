@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 const Question = ({ question, lecture, children }) => {
   return <div className="card">
     <div className="card-header">
-      {question.position}/{lecture.questionsCount} {lecture.title}
+      {question.position}/{lecture.questionsCount} {lecture.title} {question.uuid}
     </div>
 
     <div className="card-body">

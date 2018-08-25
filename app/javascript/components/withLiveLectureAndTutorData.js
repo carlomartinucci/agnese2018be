@@ -12,6 +12,9 @@ export const withLiveLectureAndTutorData = Component => {
   class WithLiveLectureAndTutorData extends React.Component {
     constructor(props) {
       super(props);
+      this.subscribeLivesChannel = this.subscribeLivesChannel.bind(this)
+      this.subscribeAnswersChannel = this.subscribeAnswersChannel.bind(this)
+      this.liveNext = this.liveNext.bind(this)
       this.addAnswer = this.addAnswer.bind(this)
       this.state = {
         liveLecture: props.liveLecture,
@@ -20,11 +23,30 @@ export const withLiveLectureAndTutorData = Component => {
     }
 
     componentDidMount() {
-      if (!this.state.tutorData) return
+      if (this.state.tutorData) {
+        this.subscribeAnswersChannel()
+      } else {
+        this.subscribeLivesChannel()
+      }
+    }
+
+    subscribeLivesChannel() {
+      const cable = ActionCable.createConsumer(CABLE_ENDPOINT)
+
+      // console.log('live_lecture_uuid:', this.state.liveLecture.uuid)
+      cable.subscriptions.create({
+        channel: 'LivesChannel',
+        live_lecture_uuid: this.state.liveLecture.uuid,
+      }, {
+        received: this.liveNext
+      });
+    }
+
+    subscribeAnswersChannel() {
       if (!this.state.liveLecture.question) return
       const cable = ActionCable.createConsumer(CABLE_ENDPOINT)
 
-      console.log('question_uuid:', this.state.liveLecture.question.uuid)
+      // console.log('question_uuid:', this.state.liveLecture.question.uuid)
       cable.subscriptions.create({
         channel: 'AnswersChannel',
         question_uuid: this.state.liveLecture.question.uuid,
@@ -33,10 +55,16 @@ export const withLiveLectureAndTutorData = Component => {
       });
     }
 
+    liveNext(data) {
+      // console.log('liveNext data:', data)
+      // console.log('state', this.state)
+      this.setState({ liveLecture: data.live_lecture })
+    }
+
     addAnswer(data) {
-      console.log('addAnswer', data)
+      // console.log('addAnswer data:', data)
       this.setState(state => {
-        if (data.answer.question_uuid !== state.liveLecture.question.uuid) return
+        if (data.answer.questionUuid !== state.liveLecture.question.uuid) return
 
         const letter = data.answer.letter
         const answers = { ...state.tutorData.answers }

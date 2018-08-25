@@ -37,7 +37,7 @@ class Question < ApplicationRecord
   validates :right_answer_letter, presence: true, inclusion: { in: %w[a b c d e] }
 
   def as_react_json
-    {
+    React.camelize_props(
       uuid: uuid,
       position: position,
       title: title,
@@ -52,7 +52,7 @@ class Question < ApplicationRecord
       answer_d: answer_d,
       answer_e: answer_e,
       right_answer_letter: right_answer_letter
-    }
+    )
   end
 
   private

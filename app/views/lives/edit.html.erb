@@ -1,7 +1,8 @@
+EDIT
 <%= react_component("Live", {
-  live_lecture: @live_lecture.as_react_json,
+  liveLecture: @live_lecture.as_react_json,
   answers: Answer.none.as_react_json,
-  tutor_data: {
+  tutorData: {
     answers: @live_lecture.question&.answers&.group(:letter)&.count
   }
 }, { prerender: false }) %>

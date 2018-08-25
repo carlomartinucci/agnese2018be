@@ -16,11 +16,11 @@ class LivesController < ApplicationController
 
   def index
     @live_lectures = LiveLecture.live.with_questions
-    @answers = Answer.where(user_slug: current_user_slug)
+    # @answers = Answer.where(user_slug: current_user_slug)
   end
 
   def show
-    @answers = Answer.where(user_slug: current_user_slug)
+    @answers = Answer.where(user_slug: current_user_slug, question: @live_lecture.lecture.questions)
   end
 
   def edit
@@ -45,12 +45,13 @@ class LivesController < ApplicationController
 
   def update
     authorize! :update, @live_lecture
-    flash_message =
-      if @live_lecture.next
-        { notice: 'Avanti!' }
-      else
-        { alert: "C'è stato un errore..." }
-      end
+    if @live_lecture.next
+      sleep(2) if Rails.env.development?
+      ActionCable.server.broadcast "lives_#{@live_lecture.uuid}", live_lecture: @live_lecture.as_react_json
+      flash_message = { notice: 'Avanti!' }
+    else
+      flash_message = { alert: "C'è stato un errore..." }
+    end
     redirect_to edit_life_path(@live_lecture.uuid), flash_message
   end
 
