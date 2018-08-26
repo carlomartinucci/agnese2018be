@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   resources :lives, only: [:create, :index, :show, :edit, :update, :destroy]
 
+  get 'poll/lives', to: 'poll#lives'
+  get 'poll/answers', to: 'poll#answers'
+
   resources :live_lectures, only: [:create, :show, :update]
   resources :answers, only: [:index, :show, :create, :update]
   resources :lectures, only: [:index, :new, :edit, :create, :update, :destroy] do
