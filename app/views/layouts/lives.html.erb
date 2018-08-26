@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <title>Agnese2018be</title>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag    'application', 'data-turbolinks-track': 'reload' %>
+    <%= action_cable_meta_tag %>
+  </head>
+
+  <body>
+    <%= render 'layouts/navbar_lives' %>
+
+    <main>
+      <div class="main-container container">
+        <%= render 'layouts/notification' %>
+
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

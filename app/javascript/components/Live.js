@@ -13,7 +13,8 @@ const LiveContainer = (props) => {
     question,
   } = props.liveLecture
 
-  const answer = question && props.answers[question.uuid]
+  const answers = props.answers
+  const answer = question && answers[question.uuid]
   const isAnswerLoading = question && props.isAnswerLoading
   const setAnswer = question && props.setAnswer
 
@@ -22,6 +23,7 @@ const LiveContainer = (props) => {
     state={state}
     lecture={lecture}
     question={question}
+    answers={answers}
     answer={answer}
     isAnswerLoading={isAnswerLoading}
     setAnswer={setAnswer}
@@ -36,7 +38,7 @@ LiveContainer.propTypes = {
   setAnswer: PropTypes.func.isRequired,
 };
 
-const Live = ({ tutorData, state, lecture, question, answer, isAnswerLoading, setAnswer }) => {
+const Live = ({ tutorData, state, lecture, question, answers, answer, isAnswerLoading, setAnswer }) => {
   switch(state) {
     case 'live_lecture.state.started':
       return <Lecture lecture={lecture} />
@@ -50,7 +52,7 @@ const Live = ({ tutorData, state, lecture, question, answer, isAnswerLoading, se
     case 'live_lecture.state.question_closed':
       return <QuestionClosed tutorData={tutorData || {}} question={question} lecture={lecture} answer={answer || {letter: ''}} />
     case 'live_lecture.state.ended':
-      return <Lecture lecture={lecture} ended />
+      return <Lecture lecture={lecture} answers={answers} ended />
       // return <Results />
     default:
   }
@@ -61,6 +63,7 @@ Live.propTypes = {
   state: PropTypes.string.isRequired,
   lecture: PropTypes.object.isRequired,
   question: PropTypes.object,
+  answers: PropTypes.object.isRequired,
   answer: PropTypes.object,
   isAnswerLoading: PropTypes.bool,
   setAnswer: PropTypes.func,

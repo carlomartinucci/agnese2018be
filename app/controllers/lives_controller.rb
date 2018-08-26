@@ -21,6 +21,7 @@ class LivesController < ApplicationController
 
   def show
     @answers = Answer.where(user_slug: current_user_slug, question: @live_lecture.lecture.questions)
+    render layout: 'lives'
   end
 
   def edit

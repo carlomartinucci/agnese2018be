@@ -38,8 +38,10 @@ export const withLiveLectureAndTutorData = Component => {
           this.interval = setInterval(this.pollAnswers, 3 * 1000)
         }
       } else {
-        this.subscribeLivesChannel()
-        this.interval = setInterval(this.pollLives, 6 * 1000)
+        if (this.state.liveLecture.state !== 'live_lecture.state.ended') {
+          this.subscribeLivesChannel()
+          this.interval = setInterval(this.pollLives, 6 * 1000)
+        }
       }
     }
 

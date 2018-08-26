@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const Lecture = ({ lecture = {}, ended = false }) => {
+const Lecture = ({ lecture = {}, ended = false, answers = {} }) => {
   const {
     title,
     description,
@@ -11,12 +11,19 @@ const Lecture = ({ lecture = {}, ended = false }) => {
     background,
   } = lecture
 
+  const results = {}
+  results.total = questionsCount
+  results.right = Object.keys(answers).filter(k => answers[k].isRight).length
+  results.wrong = Object.keys(answers).length - results.right
+  results.blank = results.total - Object.keys(answers).length
+  results.points = (results.right * 1 - results.wrong * 0.2).toFixed(1)
+
   return <div className="card">
     <div className="card-header">
-      {createdAt}, {ended ? '' : '-/'} {questionsCount} domande
+      {createdAt}, {questionsCount} domande
     </div>
 
-    <img src={background} className='responsive-image card-img-top' alt={title} />
+    { false && <img src={background} className='responsive-image card-img-top' alt={title} /> }
 
     <div className="card-body">
       <h5 className="card-title">
@@ -31,14 +38,33 @@ const Lecture = ({ lecture = {}, ended = false }) => {
         {description}
       </p>
 
-      <p className="card-text text-center">
-      { ended
-        ? 'La lezione è finita. Sei pronto per la prossima?'
-        : 'Ascolta il tutor: le domande inizieranno tra poco!'
-      }
-      </p>
+      { ended ? <Ended results={results} /> : <Started /> }
     </div>
   </div>
+}
+
+const Started = () => <p className="card-text text-center h2">
+  Ascolta il tutor: le domande inizieranno tra poco!
+</p>
+
+const Ended = ({ results }) => {
+  const {
+    total,
+    right,
+    wrong,
+    blank,
+    points,
+  } = results
+
+  return <React.Fragment>
+    <p className="card-text text-center">
+      La lezione è finita.<br/>
+      Hai risposto correttamente a {right} {right === 1 ? 'domanda' : 'domande'},<br/>
+      hai sbagliato {wrong} {wrong === 1 ? 'domanda' : 'domande'},<br/>
+      hai lasciato in bianco {blank} {blank === 1 ? 'domanda' : 'domande'},<br/>
+      per un punteggio di {points} su un massimo di {total}.
+    </p>
+  </React.Fragment>
 }
 
 export default Lecture

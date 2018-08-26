@@ -17,6 +17,7 @@ export const withAnswers = Component => {
       super(props);
       this.setAnswer = this.setAnswer.bind(this);
       this.postAnswer = this.postAnswer.bind(this);
+      console.log('props.answers', props.answers)
       this.state = {
         answers: props.answers,
         isAnswerLoading: false,

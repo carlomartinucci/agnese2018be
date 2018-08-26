@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 const Question = ({ question, lecture, children }) => {
   return <div className="card">
     <div className="card-header">
-      {question.position}/{lecture.questionsCount} {lecture.title} {question.uuid}
+      {question.position}/{lecture.questionsCount} {lecture.title}
     </div>
 
     <div className="card-body">
@@ -70,10 +70,10 @@ export const QuestionClosed = props => <Question {...props}>
   <ul className="list-group list-group-flush">
     {['a', 'b', 'c', 'd', 'e'].map(letter => {
       if (!props.tutorData.answers) {
-        return <li key={letter} className={`list-group-item ${props.answer.letter === letter ? (props.answer.isRight ? 'bg-primary' : 'bg-secondary') : ''}`}>
+        return <li key={letter} className={`list-group-item ${props.answer.letter === letter ? (props.answer.isRight ? 'bg-success' : 'bg-danger') : ''}`}>
           {props.answer.letter === letter &&
             <i className="material-icons float-right md-24" style={{margin: '-3px'}}>
-              {props.answer.isRight ? 'check' : 'close'}
+              {props.answer.isRight ? 'mood' : 'mood_bad'}
             </i>
           }
           {letter.toUpperCase()}: { props.question[`answer${letter.toUpperCase()}`] }
@@ -81,15 +81,15 @@ export const QuestionClosed = props => <Question {...props}>
       } else if (props.tutorData.answers) {
         const total = ['a', 'b', 'c', 'd', 'e'].reduce((total, letter) => total + (props.tutorData.answers[letter] || 0), 0)
         const perc = parseInt(100 * (props.tutorData.answers[letter] || 0) / total)
-        const [full, light] = props.question.rightAnswerLetter === letter ? ['#9c27b0', '#e1bee7'] : ['#ff4081', '#ff80ab']
+        const [full, light] = props.question.rightAnswerLetter === letter ? ['#4caf50', '#edf7ee'] : ['#f44336', '#fee8e7']
         return <li key={letter} className={`list-group-item`} style={{
           background: `linear-gradient(to right, ${full} 0%, ${full} ${perc}%, ${light} ${perc}%, ${light} 100%)`
         }}>
-          {props.tutorData.answers && <span className={`badge float-right badge-light ${props.question.rightAnswerLetter === letter ? 'text-primary' : 'text-secondary'}`}>
+          {props.tutorData.answers && <span className={`badge float-right badge-light ${props.question.rightAnswerLetter === letter ? 'text-success' : 'text-danger'}`}>
             {props.tutorData.answers[letter] || 0}
             &nbsp;
             <i className="material-icons material-icons-inline">
-              {props.question.rightAnswerLetter === letter ? 'check' : 'close'}
+              {props.question.rightAnswerLetter === letter ? 'mood' : 'mood_bad'}
             </i>
           </span>}
           {letter.toUpperCase()}: { props.question[`answer${letter.toUpperCase()}`] }
